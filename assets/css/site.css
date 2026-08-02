@@ -625,6 +625,14 @@ table.data a { color: var(--green-deep); font-weight: 700; }
 .faq details[open] summary::after { content: "－"; content: "－" / ""; }
 .faq details[open] summary { border-bottom: 1px solid var(--line); }
 .faq .faq__a { padding: 16px 22px 20px; font-size: 0.94rem; color: var(--text); }
+/* 見出し・本文の1文字だけの行（泣き別れ）を防ぐ */
+.u-nowrap { white-space: nowrap; }
+h1, h2, h3, .h-lead, .h-lead--lg, p { text-wrap: pretty; }
+/* 見出しを文節単位で折り返す（スマホで中途半端な位置の改行を防ぐ） */
+.u-phrase { display: inline-block; }
+/* 出現アニメーション前の translateX による一時的な横スクロールを防ぐ（clip は sticky ヘッダーに影響しない） */
+html { overflow-x: clip; }
+
 /* 開示書類バリアント: Q バッジを外して書類名だけを見せる */
 .faq--docs summary::before { display: none; }
 /* 開示書類の本文（重要事項説明書・運営規程） */

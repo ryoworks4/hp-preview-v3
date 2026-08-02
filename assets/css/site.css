@@ -274,45 +274,29 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 /* about: 水彩エンブレムを主役にした静かな世界観 */
 .subhero--about {
   background:
-    radial-gradient(540px 380px at 8% 96%, rgba(194, 106, 70, 0.13), transparent 68%),
-    linear-gradient(112deg, var(--cream) 0 55%, var(--green-tint) 55% 100%);
+    radial-gradient(620px 460px at 87% 46%, rgba(134, 160, 111, 0.14), transparent 70%),
+    radial-gradient(540px 380px at 8% 96%, rgba(194, 106, 70, 0.1), transparent 68%),
+    var(--cream);
 }
+.subhero--about .subhero__grid { grid-template-columns: minmax(0, 1fr) minmax(330px, 0.78fr); }
 .subhero--about::after {
   content: ""; position: absolute; z-index: 0; width: 330px; height: 300px;
   left: -90px; top: -120px; opacity: 0.36;
   background: url("../img/deco-branch.png") center / contain no-repeat;
   transform: rotate(18deg);
 }
-.about-emblem {
-  position: relative; width: min(410px, 100%); aspect-ratio: 1;
-  margin-inline: auto; display: grid; place-items: center;
-  border-radius: 44% 56% 58% 42% / 48% 43% 57% 52%;
-  background: rgba(255, 253, 248, 0.74);
-  border: 1px solid rgba(79, 106, 68, 0.17);
-  box-shadow: 0 30px 70px rgba(79, 106, 68, 0.14);
+.about-portrait {
+  position: relative; width: min(370px, 100%);
+  margin: -24px auto -92px;
 }
-.about-emblem::before {
-  content: ""; position: absolute; inset: 18px;
-  border: 1px dashed rgba(79, 106, 68, 0.24);
-  border-radius: inherit;
+.about-portrait img {
+  position: relative; z-index: 1; width: 100%; max-height: 520px;
+  object-fit: cover; object-position: center 30%;
+  filter: saturate(0.9) contrast(0.98);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0 88%, transparent 100%);
 }
-.about-emblem img {
-  position: relative; z-index: 2; width: 68%;
-  filter: drop-shadow(0 18px 24px rgba(96, 72, 42, 0.13));
-}
-.about-emblem__word {
-  position: absolute; z-index: 1; top: -11%; right: -4%;
-  color: rgba(79, 106, 68, 0.11); font-family: var(--serif);
-  font-size: clamp(4.5rem, 10vw, 8.5rem); font-weight: 800; line-height: 1;
-  letter-spacing: -0.04em;
-}
-.about-emblem p {
-  position: absolute; z-index: 3; right: -5%; bottom: 4%;
-  padding: 13px 18px; border-radius: 12px;
-  background: var(--green-deep); color: #fff;
-  font-family: var(--serif); font-size: 0.94rem; line-height: 1.65;
-  box-shadow: var(--shadow-sm);
-}
+.greeting-copy { max-width: 700px; margin-inline: auto; }
 
 /* service: ケアマネが対応領域を一目で確認できる濃色ヒーロー */
 .subhero--service {
@@ -641,6 +625,17 @@ table.data a { color: var(--green-deep); font-weight: 700; }
 .faq details[open] summary::after { content: "－"; content: "－" / ""; }
 .faq details[open] summary { border-bottom: 1px solid var(--line); }
 .faq .faq__a { padding: 16px 22px 20px; font-size: 0.94rem; color: var(--text); }
+/* 開示書類バリアント: Q バッジを外して書類名だけを見せる */
+.faq--docs summary::before { display: none; }
+/* 開示書類の本文（重要事項説明書・運営規程） */
+.doc-body h3 { font-family: var(--serif); font-size: 1.02rem; color: var(--ink); margin: 26px 0 10px; }
+.doc-body h3:first-child { margin-top: 4px; }
+.doc-body h4 { font-family: var(--sans); font-size: 0.93rem; font-weight: 700; color: var(--ink); margin: 18px 0 8px; }
+.doc-body p { margin: 8px 0; line-height: 1.85; }
+.doc-body ul, .doc-body ol { margin: 8px 0 8px 1.5em; display: grid; gap: 5px; line-height: 1.8; }
+.doc-body .table-wrap { margin: 12px 0 16px; }
+.doc-body table.data { font-size: 0.86rem; }
+.doc-body table.data th[colspan] { background: var(--green-tint); color: var(--green-deep); text-align: left; }
 
 /* ---------- badge / callout ---------- */
 .badges { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -909,8 +904,9 @@ table.data a { color: var(--green-deep); font-weight: 700; }
   .subhero--about {
     background:
       radial-gradient(420px 280px at 0% 100%, rgba(194, 106, 70, 0.11), transparent 70%),
-      linear-gradient(180deg, var(--cream) 0 54%, var(--green-tint) 54% 100%);
+      linear-gradient(180deg, var(--cream) 0 58%, var(--green-tint) 100%);
   }
+  .subhero--about .subhero__grid { grid-template-columns: 1fr; }
   .subhero--service .subhero__visual { width: 100%; }
   .recruit-hero-photo { border-radius: 26px; aspect-ratio: 16 / 10; }
 }
@@ -933,8 +929,7 @@ table.data a { color: var(--green-deep); font-weight: 700; }
   .subhero h1 { font-size: clamp(2rem, 9.6vw, 2.4rem); }
   .subhero__label { margin-bottom: 16px; }
   .subhero__jump { margin-top: 22px; }
-  .about-emblem { width: min(320px, 90vw); }
-  .about-emblem p { right: -2%; bottom: 1%; font-size: 0.82rem; }
+  .about-portrait { width: min(290px, 82vw); margin: -8px auto -54px; }
   .service-scope { gap: 9px; padding: 10px; }
   .service-scope__item {
     min-height: 104px; padding: 12px 8px; flex-direction: column;

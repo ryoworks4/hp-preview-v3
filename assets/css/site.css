@@ -690,6 +690,7 @@ html { overflow-x: clip; }
 .form textarea { resize: vertical; }
 .form .btn { width: 100%; margin-top: 6px; }
 .form__note { font-size: 0.76rem; color: var(--muted); margin-top: 12px; text-align: center; }
+.form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ---------- CTA band ---------- */
 .cta-band { background: linear-gradient(135deg, #5b7a4d 0%, #3f5637 100%); color: #fff; border-radius: var(--radius-lg); padding: clamp(34px, 5vw, 56px); text-align: center; }

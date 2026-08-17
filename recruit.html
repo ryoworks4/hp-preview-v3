@@ -225,15 +225,15 @@
             </p>
             <a class="contact__phone" href="tel:0742955001"><span>お電話でのお問い合わせ</span><b>0742-95-5001</b><em>受付 9:00〜17:30</em></a>
           </div>
-          <form class="form reveal" onsubmit="return false">
+          <form class="form reveal" name="saiyo" method="POST" action="/thanks.html" data-netlify="true" data-netlify-honeypot="bot-field">
+            <p class="form__honeypot"><label>この欄は入力しないでください<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
             <label>お名前<span class="req">必須</span><input type="text" name="name" placeholder="山田 花子" autocomplete="name" required /></label>
             <label>ご連絡先（電話またはメール）<span class="req">必須</span><input type="text" name="contact" placeholder="090-0000-0000" required /></label>
             <label>希望職種<select name="job"><option>看護師</option><option>理学療法士（PT）</option><option>作業療法士（OT）</option><option>相談して決めたい</option></select></label>
-            <label>履歴書の添付（任意）<input type="file" name="resume" /></label>
             <label>メッセージ<textarea name="message" rows="4" placeholder="志望動機やご質問など、お気軽にご記入ください"></textarea></label>
-            <label class="form__consent"><input type="checkbox" name="consent" required /><span>応募情報（履歴書を含む）を採用選考の目的のみに利用することに同意します<span class="req">必須</span></span></label>
-            <button class="btn btn--primary" type="submit">入力内容を確認する</button>
-            <p class="form__note">いただいた情報は採用選考の目的のみに使用します。</p>
+            <label class="form__consent"><input type="checkbox" name="consent" required /><span>応募情報を採用選考の目的のみに利用することに同意します<span class="req">必須</span></span></label>
+            <button class="btn btn--primary" type="submit">送信する</button>
+            <p class="form__note">いただいた情報は採用選考の目的のみに使用します。履歴書は面談の際にご持参ください。</p>
           </form>
         </div>
       </section>

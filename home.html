@@ -257,13 +257,14 @@
             <p class="u-mb-24">ご本人・ご家族からのご相談、ケアマネジャー・医療機関からの確認を受け付けています。お急ぎのときは、お電話でご連絡ください。</p>
             <a class="contact__phone" href="tel:0742955001"><span>お電話でのご相談</span><b>0742-95-5001</b><em>受付 9:00〜17:30</em></a>
           </div>
-          <form class="form reveal" onsubmit="return false">
+          <form class="form reveal" name="soudan" method="POST" action="/thanks.html" data-netlify="true" data-netlify-honeypot="bot-field">
+            <p class="form__honeypot"><label>この欄は入力しないでください<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
             <label>お名前<span class="req">必須</span><input type="text" name="name" placeholder="山田 花子" autocomplete="name" required /></label>
             <label>ご相談の種別<select name="type"><option>訪問看護のご相談</option><option>ケアマネジャー・医療機関からの紹介</option><option>その他</option></select></label>
             <label>ご連絡先（電話またはメール）<span class="req">必須</span><input type="text" name="contact" placeholder="090-0000-0000" required /></label>
             <label>ご相談内容<textarea name="message" rows="4" placeholder="どんなことでもお気軽にご記入ください"></textarea></label>
             <label class="form__consent"><input type="checkbox" name="consent" required /><span>ご入力いただいた個人情報を、ご相談への対応目的で利用することに同意します<span class="req">必須</span></span></label>
-            <button class="btn btn--primary" type="submit">入力内容を確認する</button>
+            <button class="btn btn--primary" type="submit">送信する</button>
             <p class="form__note">いただいた情報は相談対応の目的のみに使用します。採用に関するご連絡は<a class="link-inline" href="./recruit.html#entry">採用情報ページの応募フォーム</a>をご利用ください。</p>
           </form>
         </div>

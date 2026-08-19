@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 送信完了ページ（thanks.html）とリダイレクト用 index.html は検索対象にしないため載せない -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://aurukango.jp/home.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://aurukango.jp/about.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aurukango.jp/service.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aurukango.jp/price.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aurukango.jp/office.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aurukango.jp/recruit.html</loc>
+    <lastmod>2026-08-19</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

@@ -300,23 +300,50 @@
     calc();
   }
 
-  // ---------- フォーム（プロトタイプのデモ動作） ----------
-  // 必須項目・同意チェックのネイティブ検証を通過したときだけ submit が発火する
+  // ---------- フォーム送信（Formspree・AJAX） ----------
+  // 必須項目・同意チェックのネイティブ検証を通過したときだけ submit が発火する。
+  // 無料プランでは _next による自前ページへのリダイレクトが使えないため、
+  // fetch で送信して成功時に thanks.html へ自分で遷移させる。
+  // fetch が使えない環境では preventDefault せず、通常送信（Formspree の完了ページ）に委ねる。
   document.querySelectorAll("form.form").forEach(function (form) {
-    form.addEventListener("submit", function () {
-      var note = form.querySelector("[data-form-demo]");
+    var endpoint = form.getAttribute("action") || "";
+    if (endpoint.indexOf("https://formspree.io/") !== 0) return;
+
+    form.addEventListener("submit", function (event) {
+      if (!window.fetch) return;
+      event.preventDefault();
+
+      var button = form.querySelector('button[type="submit"]');
+      var note = form.querySelector("[data-form-status]");
       if (!note) {
         note = document.createElement("p");
-        note.setAttribute("data-form-demo", "");
+        note.setAttribute("data-form-status", "");
+        note.setAttribute("role", "status");
+        note.setAttribute("aria-live", "polite");
         note.className = "form__demo-note";
         form.appendChild(note);
       }
-      note.textContent =
-        "入力内容を確認しました。※プロトタイプのため送信は行われません。本公開時はこの後、確認画面に進み、送信後に自動返信メールが届く流れになります。";
-      note.scrollIntoView({
-        block: "nearest",
-        behavior: reduceMotion ? "auto" : "smooth",
-      });
+      if (button) button.disabled = true;
+      note.textContent = "送信しています。少々お待ちください。";
+
+      fetch(endpoint, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("送信に失敗しました");
+          window.location.href = "./thanks.html";
+        })
+        .catch(function () {
+          if (button) button.disabled = false;
+          note.textContent =
+            "送信できませんでした。お手数ですが、時間をおいて再度お試しいただくか、お電話（0742-95-5001）でご連絡ください。";
+          note.scrollIntoView({
+            block: "nearest",
+            behavior: reduceMotion ? "auto" : "smooth",
+          });
+        });
     });
   });
 })();

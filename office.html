@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
     <title>事業所案内｜訪問看護ステーション アウル</title>
     <meta
       name="description"
@@ -29,20 +28,102 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "MedicalBusiness",
-        "name": "訪問看護ステーション アウル",
-        "legalName": "株式会社ふくろう",
-        "description": "住み慣れたご自宅で療養を続けられるように。皮膚・排泄ケア、医療処置、心のケアに対応する、奈良の少数精鋭の訪問看護ステーションです。",
-        "address": {
-          "@type": "PostalAddress",
-          "postalCode": "631-0804",
-          "addressRegion": "奈良県",
-          "addressLocality": "奈良市",
-          "streetAddress": "神功2丁目4-18"
-        },
-        "telephone": "+81-742-95-5001",
-        "faxNumber": "+81-742-95-5002",
-        "areaServed": ["奈良市", "生駒市", "木津川市", "精華町", "和束町"]
+        "@graph": [
+          {
+            "@type": "MedicalBusiness",
+            "@id": "https://aurukango.jp/#organization",
+            "name": "訪問看護ステーション アウル",
+            "legalName": "株式会社ふくろう",
+            "url": "https://aurukango.jp/home.html",
+            "description": "住み慣れたご自宅で療養を続けられるように。皮膚・排泄ケア、医療処置、心のケアに対応する、奈良の少数精鋭の訪問看護ステーションです。",
+            "logo": "https://aurukango.jp/assets/img/logo-header.png",
+            "image": "https://aurukango.jp/assets/img/home-hero-v2.png",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "JP",
+              "postalCode": "631-0804",
+              "addressRegion": "奈良県",
+              "addressLocality": "奈良市",
+              "streetAddress": "神功2丁目4-18"
+            },
+            "telephone": "+81-742-95-5001",
+            "faxNumber": "+81-742-95-5002",
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "奈良市"
+              },
+              {
+                "@type": "City",
+                "name": "生駒市"
+              },
+              {
+                "@type": "City",
+                "name": "木津川市"
+              },
+              {
+                "@type": "City",
+                "name": "精華町"
+              },
+              {
+                "@type": "City",
+                "name": "和束町"
+              }
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "09:00",
+                "closes": "17:30"
+              }
+            ],
+            "identifier": {
+              "@type": "PropertyValue",
+              "name": "奈良市指定番号",
+              "value": "2960199442"
+            },
+            "sameAs": [
+              "https://lin.ee/WpE8VvY"
+            ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://aurukango.jp/office.html#webpage",
+            "url": "https://aurukango.jp/office.html",
+            "name": "事業所案内",
+            "inLanguage": "ja",
+            "isPartOf": {
+              "@id": "https://aurukango.jp/#website"
+            },
+            "about": {
+              "@id": "https://aurukango.jp/#organization"
+            },
+            "primaryImageOfPage": "https://aurukango.jp/assets/img/home-hero-v2.png"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "ホーム",
+                "item": "https://aurukango.jp/home.html"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "事業所案内"
+              }
+            ]
+          }
+        ]
       }
     </script>
   </head>

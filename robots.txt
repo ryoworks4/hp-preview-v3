@@ -1,4 +1,30 @@
 User-agent: *
 Allow: /
 
+# AI検索・回答エンジンのクローラを明示的に許可する
+# （AIの回答内で出典として紹介されることを想定しているため）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://aurukango.jp/sitemap.xml

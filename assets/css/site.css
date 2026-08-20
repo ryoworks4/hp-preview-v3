@@ -704,6 +704,13 @@ html { overflow-x: clip; }
 .cta-band h2 { color: #fff; font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 12px; }
 .cta-band p { color: #e4ecd6; margin-bottom: 24px; }
 .cta-band .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* ボタンは横に潰さない。入りきらないときは行を折り返す（文字だけが折り返して縦長になるのを防ぐ） */
+.btn-row .btn { flex: 0 0 auto; max-width: 100%; }
+/* 狭い画面では左右の余白と文字を詰めて、長いラベルも1行に収める */
+@media (max-width: 430px) {
+  .cta-band .btn { padding-left: 16px; padding-right: 16px; font-size: 0.92rem; }
+  .cta-band .btn--lg { padding: 15px 16px; font-size: 0.95rem; }
+}
 
 /* ---------- price simulator (料金シミュレーション) ---------- */
 .sim { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 26px; align-items: start; }

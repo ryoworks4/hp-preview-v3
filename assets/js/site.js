@@ -133,7 +133,7 @@
 
     // 医療保険（訪問看護療養費・令和8年度改定＝令和8年6月施行の額。厚労省資料と2026-07-24照合）
     // 前提: 機能強化型以外 / 単一建物居住利用者20人未満（個人宅想定） / 24時間対応体制加算は届出区分イ
-    // ベースアップ評価料・物価対応料等の少額項目は含まない（ページ上の注記と対応）
+    // 特別管理加算と訪問看護ベースアップ評価料(I)（令和8年10月ご利用分から算定）を含む。物価対応料等の少額項目は含まない
     // ※この SIM / IRYO は 05_tools/ryokin-simulator.html と二重管理。変更時は必ず両方を更新すること
     var IRYO = {
       basicUpTo3: 5550,   // 基本療養費(I) 週3日目まで（円/日）
@@ -141,7 +141,12 @@
       kanriFirst: 7710,   // 管理療養費 月の初日（機能強化型以外）
       kanriAfter: 3010,   // 管理療養費 2日目以降（円/日・単一建物居住利用者20人未満）
       addon24h: 6800,     // 24時間対応体制加算 イ（円/月・届出区分ロの場合は6,520円）
+      tokubetsu: { t1: 5000, t2: 2500 }, // 特別管理加算（円/月）t1=重症度等の高い場合・t2=それ以外
+      baseup: 1050,       // 訪問看護ベースアップ評価料(I)（円/月・全員に月1回）
     };
+    // 介護職員等処遇改善加算（訪問看護 1.8%・令和8年10月ご利用分から当ステーションで算定）。
+    // 区分支給限度基準額の管理対象外なので、限度額チェックには含めない
+    var SHOGU_RATE = 0.018;
 
     var numEl = sim.querySelector("[data-sim-num]");
     var announceEl = sim.querySelector("[data-sim-announce]");
@@ -208,7 +213,8 @@
       var kanri = IRYO.kanriFirst + IRYO.kanriAfter * Math.max(0, days - 1);
       var on24h = sim.querySelector("input[name='sim-iryo-24h']").checked;
       var addon = on24h ? IRYO.addon24h : 0;
-      var gross = monthlyBasic + kanri + addon;
+      var tokuI = IRYO.tokubetsu[sim.querySelector("[data-sim-iryo-tokubetsu]").value] || 0;
+      var gross = monthlyBasic + kanri + addon + tokuI + IRYO.baseup;
       var self = Math.round((gross * burden) / 10);
 
       renderNumber(roundToHundred(self));
@@ -216,7 +222,8 @@
         "基本療養費 " + yen(IRYO.basicUpTo3) + "円/日" + (weekly > 3 ? "（週4日目以降は" + yen(IRYO.basicFrom4) + "円/日）" : "");
       bd.visits.textContent = "週" + weekly + "回 × 4週 = 月" + days + "日";
       bd.addons.textContent =
-        "管理療養費 約" + yen(kanri) + "円" + (on24h ? " ＋ 24時間対応体制加算 " + yen(IRYO.addon24h) + "円" : "");
+        "管理療養費 約" + yen(kanri) + "円" + (on24h ? " ＋ 24時間対応体制加算 " + yen(IRYO.addon24h) + "円" : "") +
+        (tokuI ? " ＋ 特別管理加算 " + yen(tokuI) + "円" : "") + " ＋ ベースアップ評価料 " + yen(IRYO.baseup) + "円";
       bd.monthly.textContent = "約" + yen(Math.round(gross)) + "円";
       bd.burden.textContent = burden + "割";
 
@@ -255,17 +262,19 @@
       var addonUnits = (kinkyuOn ? SIM.addons.kinkyu1 : 0) + (SIM.addons.tokubetsu[tokubetsu] || 0);
       var shokaiUnits = SIM.addons.shokai[shokai] || 0;
       var totalUnits = monthlyUnits + addonUnits;
-      var grossExact = totalUnits * SIM.yenPerUnit;
+      var shoguUnits = Math.round(totalUnits * SHOGU_RATE);
+      var billedUnits = totalUnits + shoguUnits;
+      var grossExact = billedUnits * SIM.yenPerUnit;
       var self = Math.round((grossExact * burden) / 10);
-      var firstSelf = Math.round(((totalUnits + shokaiUnits) * SIM.yenPerUnit * burden) / 10);
+      var firstUnits = totalUnits + shokaiUnits;
+      var firstSelf = Math.round(((firstUnits + Math.round(firstUnits * SHOGU_RATE)) * SIM.yenPerUnit * burden) / 10);
 
       renderNumber(roundToHundred(self));
       bd.perVisit.textContent = perVisitUnits + "単位（約" + yen(Math.round(perVisitUnits * SIM.yenPerUnit)) + "円）";
       bd.visits.textContent = "週" + weekly + "回 × 4週 = 月" + monthlyVisits + "回";
-      bd.addons.textContent = addonUnits > 0
-        ? "＋" + addonUnits.toLocaleString("ja-JP") + "単位（約" + yen(Math.round(addonUnits * SIM.yenPerUnit)) + "円）"
-        : "なし";
-      bd.monthly.textContent = totalUnits.toLocaleString("ja-JP") + "単位（約" + yen(Math.round(grossExact)) + "円）";
+      bd.addons.textContent = (addonUnits > 0 ? "加算 ＋" + addonUnits.toLocaleString("ja-JP") + "単位・" : "") +
+        "処遇改善加算 ＋" + shoguUnits.toLocaleString("ja-JP") + "単位（約" + yen(Math.round((addonUnits + shoguUnits) * SIM.yenPerUnit)) + "円）";
+      bd.monthly.textContent = billedUnits.toLocaleString("ja-JP") + "単位（約" + yen(Math.round(grossExact)) + "円）";
       bd.burden.textContent = burden + "割";
 
       // 初回加算は利用開始の初月のみ算定されるため、月々の金額とは分けて表示する
